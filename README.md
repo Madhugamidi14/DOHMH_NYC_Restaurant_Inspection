@@ -9,7 +9,7 @@ This project is a pure Python data engineering pipeline that processes and analy
 - **Data Storage to SQL Server**
 - **SQL-Based Data Cleaning**
 - **Automated Stored Procedure Execution**
-- (Upcoming: Visualization, Reporting)
+- (Upcoming: Scheduling, Visualization, Reporting)
 
 ---
 
