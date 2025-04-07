@@ -40,10 +40,18 @@ nyc_data_project/
 │   ├── pipeline_runner.py
 │   └── save_data.py
 │
+│── sql/
+│   ├── 01_create_raw_table.sql
+│   ├── 02_create_clean_table.sql
+│   ├── 03_cleaning_procedure.sql
+│ 
+│
 ├── .gitignore
 ├── requirements.txt
 ├── main.py
 └── README.md
+
+
 ```
 
 ---
