@@ -95,5 +95,5 @@ python view_cleaned_data.py
 
 ## 📌 Author
 
-**Madhu Gamidi**  
+**Sree Madhuchandra Gamidi**  
 GitHub: [@Madhugamidi14](https://github.com/Madhugamidi14)
