@@ -15,6 +15,7 @@ def upload_to_sqlserver(df):
         database = sql_config['database']
         driver = sql_config['driver']
         table_name = sql_config['table_name']
+        procedure_name = sql_config.get('procedure_name', 'CleanRestaurantInspectionData')  # Default if not set
 
         connection_string = f"mssql+pyodbc://@{server}/{database}?driver={driver.replace(' ', '+')}"
         engine = create_engine(connection_string, fast_executemany=True)
@@ -27,6 +28,11 @@ def upload_to_sqlserver(df):
         # Upload the new data
         df.to_sql(table_name, engine, if_exists='append', index=False)
         logger.info(f"[SQL UPLOAD] Data uploaded successfully to table '{table_name}' in database '{database}'.")
+
+        # Run stored procedure to clean data
+        with engine.connect() as conn:
+            conn.execute(text(f"EXEC {procedure_name}"))
+            logger.info(f"[SQL UPLOAD] Stored procedure '{procedure_name}' executed successfully.")
 
     except Exception as e:
         logger.error(f"[SQL UPLOAD] Upload failed: {e}")

@@ -7,3 +7,4 @@ sql_server:
   database: Restaurants_Inspection
   driver: ODBC Driver 17 for SQL Server
   table_name: Inspected_RestaurantData
+  procedure_name: CleanRestaurantInspectionData
