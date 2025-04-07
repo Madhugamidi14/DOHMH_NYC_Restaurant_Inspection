@@ -6,7 +6,10 @@ This project is a pure Python data engineering pipeline that processes and analy
 - **Data Cleaning**
 - **Data Validation**
 - **Data Transformation / Enrichment**
-- (Upcoming steps: Storage, Visualization, Reporting)
+- **Data Storage to SQL Server**
+- **SQL-Based Data Cleaning**
+- **Automated Stored Procedure Execution**
+- (Upcoming: Visualization, Reporting)
 
 ---
 
@@ -73,23 +76,25 @@ python view_cleaned_data.py
 - [x] Data Cleaner
 - [x] Data Validator
 - [x] Data Transformer
-- [x] Logging System
+- [x] Logging System (auto truncates on each run)
+- [x] SQL Server Integration
+- [x] Stored Procedure Execution from Python
 - [x] Git + GitHub setup
 
 ---
 
 ## 🔜 Upcoming
 
-- Data Storage to DB (e.g. PostgreSQL)
-- Visualization Dashboard
-- Scheduled Automation
+- Data Visualization Dashboard
+- Scheduled Automation with Airflow or Cron
 - Unit Tests
 
 ---
 
 ## 📒 Notes
 
-- Validation logs are automatically saved inside `logs/pipeline.log`.
+- All logs are saved in logs/pipeline.log and refreshed each time the pipeline is run.
+- The database cleaning logic lives inside the SQL Server stored procedure
 
 ---
 
