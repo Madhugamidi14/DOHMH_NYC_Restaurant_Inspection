@@ -10,7 +10,7 @@ This project is a pure Python data engineering pipeline that processes and analy
 
 ---
 
-## 🏗️ Project Structure
+## 🏗️ Project Architecture
 
 ```
 nyc_data_project/
