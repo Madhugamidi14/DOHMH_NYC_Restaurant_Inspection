@@ -90,7 +90,6 @@ python view_cleaned_data.py
 ## 📒 Notes
 
 - Validation logs are automatically saved inside `logs/pipeline.log`.
-- Duplicate rows by `RES_ID + INSPECTION_DATE` are logged and exported to `logs/duplicate_records.csv`.
 
 ---
 
