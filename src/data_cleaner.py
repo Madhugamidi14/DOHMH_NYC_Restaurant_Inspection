@@ -5,8 +5,8 @@ import re
 logger = setup_logger()
 
 def clean_data(df):
-    logger.info("Starting data cleaning pipeline...")
-    logger.info(f"Input DataFrame shape before cleaning: {df.shape}")
+    logger.info("[CLEANING] Starting data cleaning pipeline...")
+    logger.info(f"[CLEANING] Input DataFrame shape before cleaning: {df.shape}")
 
     try:
         # Step 1: Standardize column names
@@ -16,18 +16,18 @@ def clean_data(df):
                       .str.replace(" ", "_")
                       .str.replace(r"[^\w\s]", "", regex=True)
         )
-        logger.info("Standardized column names.")
+        logger.info("[CLEANING] Standardized column names.")
     except Exception as e:
-        logger.error(f"Error standardizing column names: {e}")
+        logger.error(f"[CLEANING] Error standardizing column names: {e}")
         raise
 
     try:
         # Step 2: Drop fully empty rows
         initial_rows = len(df)
         df = df.dropna(how='all')
-        logger.info(f"Dropped {initial_rows - len(df)} fully empty rows. Shape: {df.shape}")
+        logger.info(f"[CLEANING] Dropped {initial_rows - len(df)} fully empty rows. Shape: {df.shape}")
     except Exception as e:
-        logger.error(f"Error dropping fully empty rows: {e}")
+        logger.error(f"[CLEANING] Error dropping fully empty rows: {e}")
         raise
 
     try:
@@ -36,9 +36,9 @@ def clean_data(df):
         for col in date_columns:
             if col in df.columns:
                 df[col] = pd.to_datetime(df[col], errors='coerce')
-        logger.info("Converted date columns to datetime format.")
+        logger.info("[CLEANING] Converted date columns to datetime format.")
     except Exception as e:
-        logger.error(f"Error converting date columns: {e}")
+        logger.error(f"[CLEANING] Error converting date columns: {e}")
         raise
 
     try:
@@ -47,7 +47,7 @@ def clean_data(df):
         df = df.drop_duplicates()
         logger.info(f"Dropped {initial_rows - len(df)} duplicate rows. Shape: {df.shape}")
     except Exception as e:
-        logger.error(f"Error dropping duplicate rows: {e}")
+        logger.error(f" [CLEANING] Error dropping duplicate rows: {e}")
         raise
 
     try:
@@ -55,17 +55,17 @@ def clean_data(df):
         str_cols = df.select_dtypes(include='object').columns
         df = df.copy() 
         df[str_cols] = df[str_cols].astype(str).apply(lambda col: col.str.strip())
-        logger.info("Trimmed whitespace from string columns.")
+        logger.info("[CLEANING] Trimmed whitespace from string columns.")
     except Exception as e:
-        logger.error(f"Error trimming string columns: {e}")
+        logger.error(f"[CLEANING] Error trimming string columns: {e}")
         raise
 
     try:
         # Step 6: Capitalize all column names
         df.columns = [col.upper() for col in df.columns]
-        logger.info("Capitalized all column names.")
+        logger.info("[CLEANING] Capitalized all column names.")
     except Exception as e:
-        logger.error(f"Error capitalizing column names: {e}")
+        logger.error(f"[CLEANING] Error capitalizing column names: {e}")
         raise
 
     try:
@@ -75,9 +75,9 @@ def clean_data(df):
             'DBA': 'RES_NAME',
             'PHONE': 'PHONE_NUMBER'
         })
-        logger.info("Renamed columns: CAMIS → RES_ID, DBA → RES_NAME, PHONE → PHONE_NUMBER")
+        logger.info("[CLEANING] Renamed columns: CAMIS → RES_ID, DBA → RES_NAME, PHONE → PHONE_NUMBER")
     except Exception as e:
-        logger.error(f"Error renaming specific columns: {e}")
+        logger.error(f"[CLEANING] Error renaming specific columns: {e}")
         raise
 
     try:
@@ -93,9 +93,9 @@ def clean_data(df):
                     return None
 
             df['PHONE_NUMBER'] = df['PHONE_NUMBER'].apply(format_number)
-            logger.info("Formatted phone numbers to US standard.")
+            logger.info("[CLEANING] Formatted phone numbers to US standard.")
     except Exception as e:
-        logger.error(f"Error formatting phone numbers: {e}")
+        logger.error(f"[CLEANING] Error formatting phone numbers: {e}")
         raise
     
     try:
@@ -106,9 +106,9 @@ def clean_data(df):
             invalid_values = ['', '.', 'NAN', 'NONE']
             df = df[~df['VIOLATION_CODE'].isin(invalid_values)]
             dropped_rows = initial_rows - len(df)
-            logger.info(f"Dropped {dropped_rows} rows with invalid VIOLATION_CODE values.")
+            logger.info(f"[CLEANING] Dropped {dropped_rows} rows with invalid VIOLATION_CODE values.")
     except Exception as e:
-        logger.error(f"Error cleaning VIOLATION_CODE column: {e}")
+        logger.error(f"[CLEANING] Error cleaning VIOLATION_CODE column: {e}")
         raise
     
     try:
@@ -117,9 +117,9 @@ def clean_data(df):
                         'CENSUS_TRACT', 'BIN', 'BBL', 'NTA', 'LOCATION_POINT1']
         existing_cols = [col for col in cols_to_drop if col in df.columns]
         df = df.drop(columns=existing_cols)
-        logger.info(f"Dropped columns: {existing_cols}")
+        logger.info(f"[CLEANING] Dropped columns: {existing_cols}")
     except Exception as e:
-        logger.error(f"Error dropping unwanted columns: {e}")
+        logger.error(f"[CLEANING] Error dropping unwanted columns: {e}")
         raise
 
     try:
@@ -127,10 +127,10 @@ def clean_data(df):
         if 'ZIPCODE' in df.columns:
             df['ZIPCODE'] = df['ZIPCODE'].astype(str).str[:5].str.zfill(5)
             df['ZIPCODE'] = pd.to_numeric(df['ZIPCODE'], errors='coerce').fillna(0).astype(int)
-            logger.info("Standardized ZIPCODE column to integer (5-digit).")
+            logger.info("[CLEANING] Standardized ZIPCODE column to integer (5-digit).")
     except Exception as e:
-        logger.error(f"Error fixing ZIPCODE column: {e}")
+        logger.error(f"[CLEANING] Error fixing ZIPCODE column: {e}")
         raise
 
-    logger.info("Data cleaning pipeline completed successfully.")
+    logger.info("[CLEANING] Data cleaning pipeline completed successfully.")
     return df

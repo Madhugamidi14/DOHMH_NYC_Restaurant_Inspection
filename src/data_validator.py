@@ -6,7 +6,7 @@ from datetime import datetime
 logger = setup_logger()
 
 def validate_data(df):
-    logger.info("[VALIDATION] Starting data validation checks...\n")
+    logger.info("[VALIDATION] Starting data validation checks")
 
     try:
         # 1. Check for missing values in critical columns
