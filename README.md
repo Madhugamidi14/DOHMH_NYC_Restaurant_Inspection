@@ -83,19 +83,49 @@ python view_cleaned_data.py
 - [x] Data Loader
 - [x] Data Cleaner
 - [x] Data Validator
-- [x] Data Transformer
-- [x] Logging System (auto truncates on each run)
-- [x] SQL Server Integration
+- [x] Data Transformer / Enricher
+- [x] Logging System (modular, prefixed, and auto-truncated)
+- [x] SQL Server Integration (Upload, Truncate)
 - [x] Stored Procedure Execution from Python
+- [x] SQL Server Post-Processing (cleaning into new table)
 - [x] Git + GitHub setup
+- [x] Power BI Dashboard (Visualizations from SQL Server)
+- [x] Apache Airflow Orchestration (DAG to automate the pipeline)
 
 ---
 
-## 🔜 Upcoming
+## 📊 Dashboard & Visualizations
 
-- Data Visualization Dashboard
-- Scheduled Automation with Airflow or Cron
-- Unit Tests
+Power BI is used to visualize the cleaned and enriched data stored in SQL Server.
+
+**Key visuals include:**
+- 📅 Inspection Score Trends by Year and Borough
+- 🗺️ Risk Category Breakdown by Borough and Cuisine
+- 📌 Top 10 Restaurants by Violation Count
+- 📈 Grade Distribution Across Time
+- 🧹 Common Violation Codes by Cuisine
+- 🔍 Slicers for Borough, Grade, Year, Cuisine
+
+> The `.pbix` file is available under `/powerbi/` folder.  
+> Manual refresh is required for now since Power BI Service is not connected.
+
+---
+
+## 📦 Airflow DAG Orchestration
+
+An Apache Airflow DAG is created to automate the end-to-end data pipeline.
+
+**DAG Features:**
+- Load CSV → Clean → Validate → Transform
+- Upload to SQL Server
+- Execute stored procedure for database cleaning
+- Config-driven architecture (via YAML)
+
+Airflow runs under WSL2 using Ubuntu with the DAG file located in: airflow_dags/nyc_inspection_dag.py
+
+
+> Run: `airflow webserver` + `airflow scheduler` to start orchestration.
+
 
 ---
 
