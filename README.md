@@ -106,7 +106,7 @@ Power BI is used to visualize the cleaned and enriched data stored in SQL Server
 - 🧹 Common Violation Codes by Cuisine
 - 🔍 Slicers for Borough, Grade, Year, Cuisine
 
-> The `.pbix` file is available under `/powerbi/` folder.  
+> The `.pbix` file is available under `/pbix/` folder.  
 > Manual refresh is required for now since Power BI Service is not connected.
 
 ---
